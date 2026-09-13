@@ -203,15 +203,34 @@
       <div class="admin-tab-panel" id="tab-banners">
         <div class="admin-card">
           <div class="admin-card-header">
-            <h2 class="admin-card-title">🖼️ Danh Sách Banner Khuyến Mãi</h2>
+            <h2 class="admin-card-title">🖼️ Quản Lý Banner Hero Section</h2>
             <button class="btn-admin-primary" onclick="AdminApp.openBannerModal()">+ Thêm Banner Mới</button>
           </div>
+          
+          <!-- Banner Position Filter & Guideline Bar -->
+          <div style="padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: #F8FAFC; border-bottom: 1px solid var(--admin-border);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <label style="font-size: 0.875rem; font-weight: 700; color: var(--admin-text-dark);">Lọc theo vị trí:</label>
+              <select id="adminBannerPositionFilter" class="form-select" style="min-width: 220px;" onchange="AdminApp.loadBanners()">
+                <option value="">-- Tất cả 3 vị trí Hero --</option>
+                <option value="square">Vị trí 1: Banner Vuông (Slider Trái) — 600x600 px</option>
+                <option value="horizontal">Vị trí 2: Banner Ngang (Giữa) — 700x150 px</option>
+                <option value="vertical">Vị trí 3: Banner Dọc (Phải) — 300x600 px</option>
+              </select>
+            </div>
+            <div style="font-size: 0.8rem; color: #64748B;">
+              💡 <em>Hero Section gồm 3 vị trí độc lập giúp tối ưu hiển thị banner và tăng tỷ lệ click.</em>
+            </div>
+          </div>
+
           <div class="admin-table-container">
             <table class="admin-table">
               <thead>
                 <tr>
                   <th>Ảnh Banner</th>
-                  <th>Đường dẫn liên kết (Target URL)</th>
+                  <th>Tên Banner</th>
+                  <th>Vị trí & Kích thước gợi ý</th>
+                  <th>Đường dẫn (Target URL)</th>
                   <th>Thứ tự</th>
                   <th>Trạng thái</th>
                   <th>Hành động</th>
@@ -581,9 +600,9 @@
 
   <!-- ================= MODALS ================= -->
 
-  <!-- 1. Banner Modal (STRICT: ONLY image, targetUrl, sortOrder, status - NO TEXT OVERLAYS) -->
+  <!-- 1. Banner Modal (Hero Section 3 Positions with Dimension Hints) -->
   <div class="modal-overlay" id="adminBannerModal" role="dialog" aria-modal="true">
-    <div class="modal-content-box" style="max-width: 540px;">
+    <div class="modal-content-box" style="max-width: 580px;">
       <button class="modal-close-btn" data-close-modal="adminBannerModal">✕</button>
       <div style="padding: 24px;">
         <h3 id="adminBannerModalTitle" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 20px;">Thêm Banner Mới</h3>
@@ -592,20 +611,41 @@
           <input type="hidden" id="adminBannerId">
 
           <div class="form-group">
+            <label class="form-label" for="adminBannerTitle">Tên / Ghi chú Banner</label>
+            <input type="text" id="adminBannerTitle" class="form-input" placeholder="Ví dụ: Banner Khuyến Mãi Mùa Lễ 2026">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="adminBannerPosition">Vị trí hiển thị (Hero Section) <span class="required">*</span></label>
+            <select id="adminBannerPosition" class="form-select" onchange="AdminApp.onBannerPositionChange()" required>
+              <option value="square">Vị trí 1: Banner Vuông (Slider Trái) — 600 x 600 px (1:1)</option>
+              <option value="horizontal">Vị trí 2: Banner Ngang (Giữa - trên tin tức) — 700 x 150 px (4.5:1)</option>
+              <option value="vertical">Vị trí 3: Banner Dọc (Phải - Deal Hot) — 300 x 600 px (1:2)</option>
+            </select>
+          </div>
+
+          <!-- Dimension Hint Box -->
+          <div id="adminBannerDimensionHint" style="padding: 12px 16px; border-radius: 8px; background: #EFF6FF; border: 1px solid #BFDBFE; margin-bottom: 16px; font-size: 0.85rem; color: #1E40AF; line-height: 1.5;">
+            📐 <strong>Kích thước khuyến nghị:</strong> 600 x 600 px (Tỷ lệ 1:1 vuông). Hỗ trợ slider nhiều banner tự động chuyển slide.
+          </div>
+
+          <div class="form-group">
             <label class="form-label">Tải lên ảnh Banner (JPG, PNG, WebP) <span class="required">*</span></label>
-            <input type="file" id="adminBannerImageFile" class="form-input" accept="image/*">
+            <input type="file" id="adminBannerImageFile" class="form-input" accept="image/*" onchange="AdminApp.previewBannerFile(event)">
           </div>
 
           <div class="form-group">
             <label class="form-label">Hoặc nhập link ảnh trực tiếp (URL)</label>
-            <input type="url" id="adminBannerImageUrl" class="form-input" placeholder="https://images.unsplash.com/...">
+            <input type="url" id="adminBannerImageUrl" class="form-input" placeholder="https://images.unsplash.com/..." oninput="AdminApp.previewBannerUrl(this.value)">
           </div>
 
-          <img id="adminBannerImagePreview" src="" alt="Banner Preview" style="width: 100%; aspect-ratio: 16/6; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: none;">
+          <div style="margin-bottom: 14px; text-align: center;">
+            <img id="adminBannerImagePreview" src="" alt="Banner Preview" style="max-height: 240px; max-width: 100%; object-fit: cover; border-radius: 8px; border: 1px solid var(--admin-border); display: none; margin: 0 auto;">
+          </div>
 
           <div class="form-group">
             <label class="form-label">Đường dẫn liên kết khi bấm vào Banner (Target URL) <span class="required">*</span></label>
-            <input type="text" id="adminBannerTargetUrl" class="form-input" placeholder="https://shopee.vn/..." required>
+            <input type="text" id="adminBannerTargetUrl" class="form-input" placeholder="https://shopee.vn/... hoặc /partner" required>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">

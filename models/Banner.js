@@ -2,6 +2,17 @@ const mongoose = require('mongoose');
 
 const bannerSchema = new mongoose.Schema(
   {
+    title: {
+      type: String,
+      trim: true,
+      default: ''
+    },
+    position: {
+      type: String,
+      enum: ['square', 'horizontal', 'vertical'],
+      default: 'square',
+      index: true
+    },
     image: {
       type: String,
       required: [true, 'Hình ảnh banner là bắt buộc'],

@@ -6,7 +6,8 @@ const BannerSlider = {
   container: null,
   track: null,
   dotsContainer: null,
-  banners: [],
+  allBanners: [],
+  squareBanners: [],
   currentIndex: 0,
   timer: null,
   touchStartX: 0,
@@ -22,7 +23,7 @@ const BannerSlider = {
     try {
       const response = await API.get('/banners');
       if (response.success && response.data.length > 0) {
-        this.banners = response.data;
+        this.allBanners = response.data;
         this.render();
         this.setupEvents();
         this.startAutoSlide();
@@ -39,13 +40,21 @@ const BannerSlider = {
     this.track.innerHTML = '';
     this.dotsContainer.innerHTML = '';
 
-    this.banners.forEach((banner, index) => {
-      // Slide
+    // 1. Separate banners by position
+    this.squareBanners = this.allBanners.filter((b) => b.position === 'square' || !b.position);
+    const horizontalBanner = this.allBanners.find((b) => b.position === 'horizontal');
+    const verticalBanner = this.allBanners.find((b) => b.position === 'vertical');
+
+    // 2. Render Position 1: Square Slider Banners (Left Column)
+    if (this.squareBanners.length === 0 && this.allBanners.length > 0) {
+      this.squareBanners = [this.allBanners[0]];
+    }
+
+    this.squareBanners.forEach((banner, index) => {
       const slide = document.createElement('a');
       slide.className = 'banner-slide';
       slide.href = banner.targetUrl || '#';
 
-      // External links open in new tab with affiliate/sponsored rel
       if (banner.targetUrl && (banner.targetUrl.startsWith('http://') || banner.targetUrl.startsWith('https://'))) {
         slide.target = '_blank';
         slide.rel = 'noopener noreferrer sponsored';
@@ -53,43 +62,62 @@ const BannerSlider = {
 
       const img = document.createElement('img');
       img.src = banner.image;
-      img.alt = 'Banner khuyến mãi Droppii';
+      img.alt = banner.title || 'Banner Vuông Slider Droppii';
       img.loading = index === 0 ? 'eager' : 'lazy';
       img.onerror = () => {
-        img.src = 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80';
+        img.src = 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&auto=format&fit=crop&q=80';
       };
 
       slide.appendChild(img);
       this.track.appendChild(slide);
 
-      // Dot
-      const dot = document.createElement('div');
-      dot.className = `banner-dot ${index === 0 ? 'is-active' : ''}`;
-      dot.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.goTo(index);
-      });
-      this.dotsContainer.appendChild(dot);
+      // Pagination Dot
+      if (this.squareBanners.length > 1) {
+        const dot = document.createElement('div');
+        dot.className = `banner-dot ${index === 0 ? 'is-active' : ''}`;
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.goTo(index);
+        });
+        this.dotsContainer.appendChild(dot);
+      }
     });
 
-    // Populate Middle Column Static Banner if available
-    const staticBannerLink = document.getElementById('heroStaticBannerLink');
-    const staticBannerImg = document.getElementById('heroStaticBannerImg');
-    if (staticBannerLink && staticBannerImg && this.banners.length > 0) {
-      // Use banner 2 or fallback
-      const promoBanner = this.banners.length > 2 ? this.banners[2] : (this.banners.length > 1 ? this.banners[1] : this.banners[0]);
-      staticBannerImg.src = promoBanner.image;
-      staticBannerLink.href = promoBanner.targetUrl || '#';
+    // Arrow navigation visibility
+    const prevBtn = document.getElementById('bannerPrevBtn');
+    const nextBtn = document.getElementById('bannerNextBtn');
+    if (prevBtn && nextBtn) {
+      const showArrows = this.squareBanners.length > 1;
+      prevBtn.style.display = showArrows ? 'flex' : 'none';
+      nextBtn.style.display = showArrows ? 'flex' : 'none';
     }
 
-    // Populate Right Column Vertical Banner if available
+    // 3. Render Position 2: Horizontal Banner (Middle Column - Width full, Height 150px)
+    const staticBannerLink = document.getElementById('heroStaticBannerLink');
+    const staticBannerImg = document.getElementById('heroStaticBannerImg');
+    if (staticBannerLink && staticBannerImg) {
+      if (horizontalBanner) {
+        staticBannerImg.src = horizontalBanner.image;
+        staticBannerImg.alt = horizontalBanner.title || 'Banner Ngang Khuyến Mãi';
+        staticBannerLink.href = horizontalBanner.targetUrl || '#';
+      } else {
+        staticBannerImg.src = 'https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=800&auto=format&fit=crop&q=80';
+        staticBannerLink.href = '#';
+      }
+    }
+
+    // 4. Render Position 3: Vertical Banner (Right Column - Height full)
     const vertBannerLink = document.getElementById('heroVerticalBannerLink');
     const vertBannerImg = document.getElementById('heroVerticalBannerImg');
-    if (vertBannerLink && vertBannerImg && this.banners.length > 0) {
-      // Use banner 3 or fallback
-      const vertPromo = this.banners.length > 3 ? this.banners[3] : (this.banners.length > 1 ? this.banners[this.banners.length - 1] : this.banners[0]);
-      vertBannerImg.src = vertPromo.image;
-      vertBannerLink.href = vertPromo.targetUrl || '#';
+    if (vertBannerLink && vertBannerImg) {
+      if (verticalBanner) {
+        vertBannerImg.src = verticalBanner.image;
+        vertBannerImg.alt = verticalBanner.title || 'Banner Dọc Khuyến Mãi';
+        vertBannerLink.href = verticalBanner.targetUrl || '#';
+      } else {
+        vertBannerImg.src = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80';
+        vertBannerLink.href = '#';
+      }
     }
 
     this.updateSlidePosition();
@@ -99,16 +127,16 @@ const BannerSlider = {
     if (!this.track) return;
     this.track.innerHTML = `
       <div class="banner-slide">
-        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80" alt="Khuyến mãi Droppii">
+        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&auto=format&fit=crop&q=80" alt="Khuyến mãi Droppii">
       </div>
     `;
   },
 
   goTo(index) {
-    if (this.banners.length === 0) return;
+    if (this.squareBanners.length === 0) return;
     if (index < 0) {
-      this.currentIndex = this.banners.length - 1;
-    } else if (index >= this.banners.length) {
+      this.currentIndex = this.squareBanners.length - 1;
+    } else if (index >= this.squareBanners.length) {
       this.currentIndex = 0;
     } else {
       this.currentIndex = index;

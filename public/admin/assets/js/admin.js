@@ -218,25 +218,62 @@ const AdminApp = {
     });
   },
 
-  // ================= 2. BANNERS (STRICT: IMAGE + TARGET URL ONLY) =================
+  // ================= 2. BANNERS (3 HERO POSITIONS & DIMENSION HINTS) =================
   async loadBanners() {
     const tbody = document.getElementById('adminBannersTableBody');
     if (!tbody) return;
 
+    const positionFilter = document.getElementById('adminBannerPositionFilter')?.value || '';
+    const query = positionFilter ? `?position=${positionFilter}` : '';
+
     try {
-      const res = await AdminAuth.fetchAuth('/banners');
+      const res = await AdminAuth.fetchAuth(`/banners${query}`);
       if (res.success) {
         if (res.data.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">Chưa có banner nào. Hãy bấm Thêm Banner mới.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 24px; color: var(--admin-text-muted);">Chưa có banner nào ở vị trí này. Hãy bấm <strong>+ Thêm Banner Mới</strong>.</td></tr>`;
           return;
         }
 
+        const positionMap = {
+          square: {
+            label: 'Vị trí 1: Vuông (Slider Trái)',
+            hint: '600 x 600 px (1:1)',
+            bg: '#EFF6FF',
+            color: '#1D4ED8',
+            border: '#BFDBFE'
+          },
+          horizontal: {
+            label: 'Vị trí 2: Ngang (Giữa)',
+            hint: '700 x 150 px (4.5:1)',
+            bg: '#F0FDF4',
+            color: '#15803D',
+            border: '#BBF7D0'
+          },
+          vertical: {
+            label: 'Vị trí 3: Dọc (Phải - Deal Hot)',
+            hint: '300 x 600 px (1:2)',
+            bg: '#FFF7ED',
+            color: '#C2410C',
+            border: '#FED7AA'
+          }
+        };
+
         tbody.innerHTML = res.data
-          .map(
-            (b) => `
+          .map((b) => {
+            const pos = positionMap[b.position] || positionMap.square;
+            return `
           <tr>
             <td>
-              <img src="${b.image}" class="banner-table-thumb" alt="Banner" onerror="this.src='https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=300'">
+              <img src="${b.image}" class="banner-table-thumb" alt="Banner" style="width: 70px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid var(--admin-border);" onerror="this.src='https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=300'">
+            </td>
+            <td>
+              <strong style="color: var(--admin-text-dark); font-size: 0.9rem;">${this.escapeHTML(b.title || 'Banner Hero')}</strong>
+            </td>
+            <td>
+              <span style="display: inline-block; padding: 4px 10px; border-radius: 6px; background: ${pos.bg}; color: ${pos.color}; border: 1px solid ${pos.border}; font-size: 0.78rem; font-weight: 700; line-height: 1.3;">
+                ${pos.label}
+                <br><span style="font-weight: 500; opacity: 0.85;">📐 Gợi ý: ${pos.hint}</span>
+              </span>
             </td>
             <td>
               <a href="${this.escapeHTML(b.targetUrl)}" target="_blank" style="color: var(--admin-secondary); text-decoration: underline; word-break: break-all; font-size: 0.825rem;">
@@ -256,12 +293,79 @@ const AdminApp = {
               </div>
             </td>
           </tr>
-        `
-          )
+        `;
+          })
           .join('');
       }
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: red;">Lỗi tải danh sách banner.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: red;">Lỗi tải danh sách banner.</td></tr>`;
+    }
+  },
+
+  onBannerPositionChange() {
+    const pos = document.getElementById('adminBannerPosition')?.value || 'square';
+    const hintEl = document.getElementById('adminBannerDimensionHint');
+    const previewImg = document.getElementById('adminBannerImagePreview');
+
+    const hints = {
+      square: {
+        text: '📐 <strong>Vị trí 1 - Banner Vuông (Slider Trái):</strong> Kích thước chuẩn khuyến nghị: <strong>600 x 600 px</strong> (hoặc 800 x 800 px, Tỷ lệ 1:1). Hỗ trợ slider tự động chuyển ảnh.',
+        aspect: '1 / 1',
+        bg: '#EFF6FF',
+        color: '#1E40AF',
+        border: '#BFDBFE'
+      },
+      horizontal: {
+        text: '📐 <strong>Vị trí 2 - Banner Ngang (Giữa):</strong> Kích thước chuẩn khuyến nghị: <strong>700 x 150 px</strong> (hoặc 800 x 180 px, Tỷ lệ 4.5:1). Hiển thị cố định phía trên box tin tức.',
+        aspect: '700 / 150',
+        bg: '#F0FDF4',
+        color: '#166534',
+        border: '#BBF7D0'
+      },
+      vertical: {
+        text: '📐 <strong>Vị trí 3 - Banner Dọc (Phải):</strong> Kích thước chuẩn khuyến nghị: <strong>300 x 600 px</strong> (hoặc 400 x 800 px, Tỷ lệ 1:2). Hiển thị banner dọc nổi bật cả chiều cao hero section.',
+        aspect: '1 / 2',
+        bg: '#FFF7ED',
+        color: '#9A3412',
+        border: '#FED7AA'
+      }
+    };
+
+    const cur = hints[pos] || hints.square;
+    if (hintEl) {
+      hintEl.innerHTML = cur.text;
+      hintEl.style.background = cur.bg;
+      hintEl.style.color = cur.color;
+      hintEl.style.borderColor = cur.border;
+    }
+
+    if (previewImg) {
+      previewImg.style.aspectRatio = cur.aspect;
+    }
+  },
+
+  previewBannerFile(event) {
+    const file = event.target.files[0];
+    const previewImg = document.getElementById('adminBannerImagePreview');
+    if (file && previewImg) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImg.src = e.target.result;
+        previewImg.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  },
+
+  previewBannerUrl(url) {
+    const previewImg = document.getElementById('adminBannerImagePreview');
+    if (previewImg) {
+      if (url && url.trim()) {
+        previewImg.src = url.trim();
+        previewImg.style.display = 'block';
+      } else {
+        previewImg.style.display = 'none';
+      }
     }
   },
 
@@ -274,7 +378,10 @@ const AdminApp = {
     const idInput = document.getElementById('adminBannerId');
     const previewImg = document.getElementById('adminBannerImagePreview');
 
-    if (previewImg) previewImg.style.display = 'none';
+    if (previewImg) {
+      previewImg.style.display = 'none';
+      previewImg.src = '';
+    }
 
     if (bannerId) {
       titleEl.textContent = 'Chỉnh sửa Banner';
@@ -284,10 +391,15 @@ const AdminApp = {
         const res = await AdminAuth.fetchAuth('/banners');
         const banner = res.data.find((b) => b._id === bannerId);
         if (banner) {
-          document.getElementById('adminBannerTargetUrl').value = banner.targetUrl;
-          document.getElementById('adminBannerSortOrder').value = banner.sortOrder;
-          document.getElementById('adminBannerStatus').value = banner.status.toString();
-          if (previewImg) {
+          document.getElementById('adminBannerTitle').value = banner.title || '';
+          document.getElementById('adminBannerPosition').value = banner.position || 'square';
+          document.getElementById('adminBannerTargetUrl').value = banner.targetUrl || '';
+          document.getElementById('adminBannerSortOrder').value = banner.sortOrder || 0;
+          document.getElementById('adminBannerStatus').value = banner.status !== false ? 'true' : 'false';
+
+          this.onBannerPositionChange();
+
+          if (previewImg && banner.image) {
             previewImg.src = banner.image;
             previewImg.style.display = 'block';
           }
@@ -299,6 +411,8 @@ const AdminApp = {
     } else {
       titleEl.textContent = 'Thêm Banner Mới';
       idInput.value = '';
+      document.getElementById('adminBannerPosition').value = 'square';
+      this.onBannerPositionChange();
     }
 
     Modal.open('adminBannerModal');
@@ -307,6 +421,8 @@ const AdminApp = {
   async saveBanner(event) {
     event.preventDefault();
     const id = document.getElementById('adminBannerId').value;
+    const title = document.getElementById('adminBannerTitle').value.trim();
+    const position = document.getElementById('adminBannerPosition').value;
     const targetUrl = document.getElementById('adminBannerTargetUrl').value.trim();
     const sortOrder = document.getElementById('adminBannerSortOrder').value;
     const status = document.getElementById('adminBannerStatus').value;
@@ -319,6 +435,8 @@ const AdminApp = {
     }
 
     const formData = new FormData();
+    formData.append('title', title);
+    formData.append('position', position);
     formData.append('targetUrl', targetUrl);
     formData.append('sortOrder', sortOrder || 0);
     formData.append('status', status);

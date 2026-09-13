@@ -6,7 +6,14 @@ const { isSafeUrl } = require('../utils/helpers');
 // @route   GET /api/banners
 // @access  Public
 const getBanners = asyncHandler(async (req, res) => {
-  const banners = await Banner.find({ status: true }).sort({ sortOrder: 1, createdAt: -1 });
+  const { position } = req.query;
+  const query = { status: true };
+
+  if (position && ['square', 'horizontal', 'vertical'].includes(position)) {
+    query.position = position;
+  }
+
+  const banners = await Banner.find(query).sort({ sortOrder: 1, createdAt: -1 });
 
   res.status(200).json({
     success: true,
@@ -20,7 +27,14 @@ const getBanners = asyncHandler(async (req, res) => {
 // @route   GET /api/admin/banners
 // @access  Private (Admin)
 const getAdminBanners = asyncHandler(async (req, res) => {
-  const banners = await Banner.find().sort({ sortOrder: 1, createdAt: -1 });
+  const { position } = req.query;
+  const query = {};
+
+  if (position && ['square', 'horizontal', 'vertical'].includes(position)) {
+    query.position = position;
+  }
+
+  const banners = await Banner.find(query).sort({ position: 1, sortOrder: 1, createdAt: -1 });
 
   res.status(200).json({
     success: true,
@@ -28,11 +42,11 @@ const getAdminBanners = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Create new Banner (Image + Target URL only)
+// @desc    Create new Banner
 // @route   POST /api/admin/banners
 // @access  Private (Admin)
 const createBanner = asyncHandler(async (req, res) => {
-  const { targetUrl, sortOrder, status } = req.body;
+  const { title, position, targetUrl, sortOrder, status } = req.body;
 
   let image = '';
   if (req.file) {
@@ -62,7 +76,11 @@ const createBanner = asyncHandler(async (req, res) => {
     });
   }
 
+  const validPosition = ['square', 'horizontal', 'vertical'].includes(position) ? position : 'square';
+
   const banner = new Banner({
+    title: title ? title.trim() : '',
+    position: validPosition,
     image,
     targetUrl: targetUrl.trim(),
     sortOrder: Number(sortOrder) || 0,
@@ -92,7 +110,12 @@ const updateBanner = asyncHandler(async (req, res) => {
     });
   }
 
-  const { targetUrl, sortOrder, status } = req.body;
+  const { title, position, targetUrl, sortOrder, status } = req.body;
+
+  if (title !== undefined) banner.title = title.trim();
+  if (position !== undefined && ['square', 'horizontal', 'vertical'].includes(position)) {
+    banner.position = position;
+  }
 
   if (targetUrl !== undefined) {
     if (!targetUrl.trim() || !isSafeUrl(targetUrl)) {
