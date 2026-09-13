@@ -319,18 +319,7 @@ const BannerSlider = {
         img.src = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80';
       };
 
-      const badge = document.createElement('div');
-      badge.className = 'hero-vertical-badge';
-      badge.innerHTML = `
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-        </svg>
-        <span>Deal Hot</span>
-      `;
-
       slide.appendChild(img);
-      slide.appendChild(badge);
       sliderEl.appendChild(slide);
 
       // Create Dot if multiple vertical banners
