@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Droppii Affiliate - Săn Deal & Sản Phẩm Chính Hãng</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Khám phá các sản phẩm chính hãng, deal giảm giá sốc đến 50%, quà tặng giá trị từ Droppii và các sàn thương mại điện tử hàng đầu.">
+  <meta name="keywords"
+    content="droppii, affiliate, deal hot, đồ gia dụng, mỹ phẩm chính hãng, điện thoại, thực phẩm sức khỏe">
+  <meta name="author" content="Droppii Affiliate">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Droppii Affiliate - Săn Deal & Sản Phẩm Chính Hãng">
+  <meta property="og:description"
+    content="Nền tảng tổng hợp sản phẩm chính hãng chất lượng cao, ưu đãi độc quyền từ Droppii.">
+  <meta property="og:type" content="website">
+  <meta property="og:image"
+    content="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&auto=format&fit=crop&q=80">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body>
+
+  <!-- ================= 1. HEADER ================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="/" class="header-logo" aria-label="Trang chủ Droppii Affiliate">
+        <img src="/assets/logo.webp" alt="Droppii Affiliate - Săn Deal & Sản Phẩm Chính Hãng">
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-desktop" aria-label="Menu chính">
+        <a href="#heroBannerSection" class="nav-link active">Trang chủ</a>
+        <a href="#hotNewsSection" class="nav-link">Tin tức</a>
+        <a href="#promotionsSection" class="nav-link">Khuyến mãi</a>
+        <a href="#exploreProductsSection" class="nav-link">Sản phẩm</a>
+        <a href="#videoSection" class="nav-link">Video</a>
+        <a href="#contactSection" class="nav-link">Liên hệ</a>
+        <a href="/admin/login" class="nav-link" style="color: var(--secondary);">Quản trị</a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="/partner" class="btn-partner-nav">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Đăng ký đối tác</span>
+        </a>
+        <button class="btn-hamburger" id="btnOpenDrawer" aria-label="Mở menu điều hướng">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Menu di động">
+    <div class="drawer-header">
+      <div class="header-logo">
+        <img src="/assets/logo.webp" alt="Droppii Affiliate - Săn Deal & Sản Phẩm Chính Hãng">
+      </div>
+      <button class="drawer-close" id="btnCloseDrawer" aria-label="Đóng menu">✕</button>
+    </div>
+    <div class="drawer-body">
+      <a href="#heroBannerSection" class="drawer-nav-item active">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Trang chủ</span>
+      </a>
+      <a href="#hotNewsSection" class="drawer-nav-item">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+        <span>Tin tức HOT</span>
+      </a>
+      <a href="#promotionsSection" class="drawer-nav-item">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+        <span>Sản phẩm khuyến mãi</span>
+      </a>
+      <a href="#newArrivalsSection" class="drawer-nav-item">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <span>Sản phẩm mới</span>
+      </a>
+      <a href="#exploreProductsSection" class="drawer-nav-item">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>Tất cả danh mục</span>
+      </a>
+      <a href="#videoSection" class="drawer-nav-item">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+        <span>Thư viện Video</span>
+      </a>
+      <a href="#contactSection" class="drawer-nav-item">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>Liên hệ tư vấn</span>
+      </a>
+      <a href="/partner" class="drawer-nav-item" style="color: var(--primary);">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span>Đăng ký đối tác</span>
+      </a>
+      <a href="/admin/login" class="drawer-nav-item" style="color: var(--secondary);">
+        <svg class="drawer-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>Quản trị Admin</span>
+      </a>
+    </div>
+    <div class="drawer-footer">
+      <a href="/partner" class="btn-submit-primary" style="text-align: center;">
+        Trở thành đối tác Droppii
+      </a>
+    </div>
+  </aside>
+
+  <main>
+    <!-- ================= 2. HERO / BANNER KHUYẾN MÃI ================= -->
+    <section class="hero-banner-section" id="heroBannerSection" aria-label="Hero Section">
+      <div class="container">
+        <div class="hero-grid-layout">
+
+          <!-- Left Column: Square Banner Slider -->
+          <div class="hero-left-col">
+            <div class="banner-carousel-container hero-square-slider" id="heroBannerContainer">
+              <div class="banner-track" id="heroBannerTrack">
+                <!-- Dynamic Banners from MongoDB -->
+              </div>
+              <button class="banner-arrow banner-prev" id="bannerPrevBtn" aria-label="Banner trước">‹</button>
+              <button class="banner-arrow banner-next" id="bannerNextBtn" aria-label="Banner sau">›</button>
+              <div class="banner-dots" id="heroBannerDots"></div>
+            </div>
+          </div>
+
+          <!-- Middle Column: Static Banner (height: 150px) + News Box -->
+          <div class="hero-middle-col">
+            <!-- Static Banner: 150px height, full remaining width -->
+            <a href="https://shopee.vn" id="heroStaticBannerLink" class="hero-static-banner" target="_blank"
+              rel="noopener noreferrer sponsored">
+              <img id="heroStaticBannerImg"
+                src="https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=800&auto=format&fit=crop&q=80"
+                alt="Banner Khuyến Mãi Nổi Bật">
+            </a>
+
+            <!-- News Box: with mini thumbnail & news title -->
+            <div class="hero-news-box">
+              <div class="hero-news-header">
+                <div class="hero-news-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+                  </svg>
+                  <span>Tin Tức Nổi Bật</span>
+                </div>
+                <a href="#hotNewsSection" class="hero-news-more">Xem tất cả →</a>
+              </div>
+              <div class="hero-news-list" id="heroNewsList">
+                <!-- Dynamic Mini News from NewsModule -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Vertical Banner (Banner Dọc) -->
+          <div class="hero-right-col">
+            <a href="https://shopee.vn" id="heroVerticalBannerLink" class="hero-vertical-banner" target="_blank"
+              rel="noopener noreferrer sponsored">
+              <img id="heroVerticalBannerImg"
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80"
+                alt="Banner Dọc Khuyến Mãi">
+              <div class="hero-vertical-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>Deal Hot</span>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. SẢN PHẨM KHUYẾN MÃI ================= -->
+    <section class="section-wrapper" id="promotionsSection" style="background-color: #FFF8F5;">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title" style="color: var(--sale-red);">
+              <span class="badge-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                </svg>
+              </span>
+              SẢN PHẨM KHUYẾN MÃI
+            </h2>
+            <p class="section-subtitle">Deal hời giá sốc - Quà tặng độc quyền số lượng có hạn</p>
+          </div>
+        </div>
+        <div class="product-grid" id="promotionProductsGrid">
+          <!-- Dynamic Promotion Products from MongoDB -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 5. SẢN PHẨM MỚI ================= -->
+    <section class="section-wrapper" id="newArrivalsSection">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">
+              <span class="badge-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </span>
+              SẢN PHẨM MỚI LÊN KỆ
+            </h2>
+            <p class="section-subtitle">Những sản phẩm chính hãng vừa được ra mắt và mở bán</p>
+          </div>
+        </div>
+        <div class="product-grid" id="newProductsGrid">
+          <!-- Dynamic New Products from MongoDB -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 6. SẢN PHẨM THEO DANH MỤC (DYNAMIC HOMEPAGE CATEGORIES) ================= -->
+    <div id="dynamicCategoriesContainer">
+      <!-- Dynamically generated sections for categories marked showOnHomepage: true -->
+    </div>
+
+    <!-- ================= 7. KHÁM PHÁ & LỌC TẤT CẢ SẢN PHẨM ================= -->
+    <section class="section-wrapper" id="exploreProductsSection" style="background-color: #F1F4F9;">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">
+              <span class="badge-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </span>
+              KHÁM PHÁ SẢN PHẨM
+            </h2>
+            <p class="section-subtitle">Chọn danh mục hoặc tìm kiếm sản phẩm bạn quan tâm</p>
+          </div>
+        </div>
+
+        <!-- Category Filter Chips -->
+        <div class="category-chips-bar" id="categoryChipsBar" role="tablist">
+          <!-- Dynamic Category Chips -->
+        </div>
+
+        <!-- Search & Sort Row -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+          <div style="flex: 2; min-width: 200px;">
+            <input type="text" id="productSearchInput" class="form-input"
+              placeholder="Nhập tên sản phẩm cần tìm (Ví dụ: iPhone, nồi chiên, serum...)"
+              aria-label="Tìm kiếm sản phẩm">
+          </div>
+          <div style="flex: 1; min-width: 150px;">
+            <select id="productSortSelect" class="form-select" aria-label="Sắp xếp sản phẩm">
+              <option value="">Sắp xếp mặc định</option>
+              <option value="price-asc">Giá: Thấp đến Cao</option>
+              <option value="price-desc">Giá: Cao đến Thấp</option>
+              <option value="discount">Giảm giá nhiều nhất</option>
+              <option value="newest">Mới nhất</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="product-grid" id="exploreProductsGrid">
+          <!-- Filtered Products from MongoDB -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 8. THƯ VIỆN VIDEO ================= -->
+    <section class="section-wrapper" id="videoSection">
+      <div class="container">
+        <div class="section-header video-section-header">
+          <div>
+            <h2 class="section-title">
+              <span class="badge-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg>
+              </span>
+              VIDEO NỔI BẬT
+            </h2>
+            <p class="section-subtitle">Xem trải nghiệm thực tế và hướng dẫn sử dụng chi tiết từ các chuyên gia</p>
+          </div>
+          <!-- Slider Navigation Arrows -->
+          <div class="slider-nav-arrows" id="videoSliderNav">
+            <button type="button" class="slider-arrow-btn" id="videoPrevBtn" aria-label="Slide trước"
+              title="Slide trước">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button type="button" class="slider-arrow-btn" id="videoNextBtn" aria-label="Slide tiếp theo"
+              title="Slide tiếp theo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Video Slider Container -->
+        <div class="video-slider-container" id="videoSliderContainer">
+          <div class="video-slider-track" id="videoSliderTrack">
+            <!-- Dynamic Slides (6 videos per slide) inserted by videos.js -->
+          </div>
+        </div>
+
+        <!-- Slider Pagination Dots -->
+        <div class="slider-dots" id="videoSliderDots"></div>
+      </div>
+    </section>
+
+    <!-- ================= 9 & 10. LIÊN HỆ & ĐĂNG KÝ NHẬN TIN KHUYẾN MÃI ================= -->
+    <section class="section-wrapper" id="contactSection"
+      style="background: linear-gradient(180deg, #FFFFFF 0%, #F4F6F9 100%);">
+      <div class="container">
+        <div class="forms-dual-container">
+
+          <!-- Contact Form -->
+          <div class="card-form-box">
+            <h3 class="card-form-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <span>GỬI LIÊN HỆ TƯ VẤN</span>
+            </h3>
+            <p class="card-form-subtitle">Bạn cần thông tin về sản phẩm hoặc link mua hàng? Hãy để lại tin nhắn!</p>
+            <form id="contactForm" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="contactName">Họ và tên <span class="required">*</span></label>
+                <input type="text" id="contactName" class="form-input" placeholder="Ví dụ: Nguyễn Văn An" required>
+                <div class="form-field-error">Vui lòng nhập họ và tên</div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contactPhone">Số điện thoại <span class="required">*</span></label>
+                <input type="tel" id="contactPhone" class="form-input" placeholder="Ví dụ: 0901234567" required>
+                <div class="form-field-error">Số điện thoại không hợp lệ</div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" class="form-input" placeholder="email@vidu.com">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contactMessage">Nội dung <span class="required">*</span></label>
+                <textarea id="contactMessage" class="form-textarea"
+                  placeholder="Nhập câu hỏi hoặc nội dung bạn cần hỗ trợ..." required></textarea>
+                <div class="form-field-error">Vui lòng nhập nội dung liên hệ</div>
+              </div>
+
+              <button type="submit" class="btn-submit-primary" id="contactSubmitBtn">
+                Gửi liên hệ ngay
+              </button>
+            </form>
+          </div>
+
+          <!-- Newsletter Form -->
+          <div class="card-form-box"
+            style="display: flex; flex-direction: column; justify-content: space-between; border-top: 4px solid var(--primary);">
+            <div>
+              <h3 class="card-form-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span>ĐỪNG BỎ LỠ KHUYẾN MÃI</span>
+              </h3>
+              <p class="card-form-subtitle">Nhận ngay thông báo Deal sốc, mã giảm giá độc quyền và quà tặng sớm nhất qua
+                Email / SMS.</p>
+
+              <ul
+                style="list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; color: var(--text-secondary);">
+                <li style="display: flex; align-items: center; gap: 8px;">
+                  <span style="color: var(--success-green); font-weight: bold;">✓</span>
+                  Cập nhật mã giảm giá độc quyền đến 50%
+                </li>
+                <li style="display: flex; align-items: center; gap: 8px;">
+                  <span style="color: var(--success-green); font-weight: bold;">✓</span>
+                  Nhận tin quà tặng giới hạn trước giờ mở bán
+                </li>
+                <li style="display: flex; align-items: center; gap: 8px;">
+                  <span style="color: var(--success-green); font-weight: bold;">✓</span>
+                  Cam kết bảo mật thông tin 100%, không spam
+                </li>
+              </ul>
+            </div>
+
+            <form id="newsletterForm" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="newsletterInput">Email hoặc Số điện thoại của bạn</label>
+                <input type="text" id="newsletterInput" class="form-input"
+                  placeholder="Nhập email hoặc số điện thoại..." required>
+              </div>
+              <button type="submit" class="btn-submit-primary" id="newsletterSubmitBtn"
+                style="background: var(--secondary);">
+                Đăng ký nhận ưu đãi
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= 11. FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- Affiliate Disclosure Box -->
+      <div class="footer-disclosure-box">
+        <div class="disclosure-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>Thông báo Tiếp thị liên kết (Affiliate Disclosure)</span>
+        </div>
+        <p class="disclosure-text" id="footerAffiliateDisclosureText">
+          Một số liên kết trên website là liên kết tiếp thị liên kết (Affiliate). Chúng tôi có thể nhận hoa hồng khi bạn
+          mua hàng thông qua các liên kết này mà không làm tăng giá sản phẩm của bạn. Xin cảm ơn sự ủng hộ của bạn!
+        </p>
+      </div>
+
+      <div class="footer-grid">
+        <!-- Col 1: Brand & Desc -->
+        <div class="footer-col-brand">
+          <div class="brand-logo-text dynamic-site-name">Droppii AFF</div>
+          <p class="footer-desc" id="footerDescriptionText">
+            Nền tảng tổng hợp sản phẩm chính hãng chất lượng cao, ưu đãi độc quyền từ Droppii và các sàn thương mại điện
+            tử hàng đầu.
+          </p>
+          <div class="footer-social-links">
+            <a href="#" id="footerFacebookLink" class="social-icon-link" target="_blank" rel="noopener noreferrer"
+              aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="#" id="footerYoutubeLink" class="social-icon-link" target="_blank" rel="noopener noreferrer"
+              aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+            <a href="#" id="footerTiktokLink" class="social-icon-link" target="_blank" rel="noopener noreferrer"
+              aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <h4 class="footer-heading">Khám phá nhanh</h4>
+          <ul class="footer-menu-list">
+            <li><a href="#heroBannerSection" class="footer-menu-link">Trang chủ</a></li>
+            <li><a href="#promotionsSection" class="footer-menu-link">Sản phẩm khuyến mãi</a></li>
+            <li><a href="#newArrivalsSection" class="footer-menu-link">Sản phẩm mới</a></li>
+            <li><a href="#hotNewsSection" class="footer-menu-link">Tin tức HOT</a></li>
+            <li><a href="#videoSection" class="footer-menu-link">Thư viện Video</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Policy & Partners -->
+        <div>
+          <h4 class="footer-heading">Hợp tác & Chính sách</h4>
+          <ul class="footer-menu-list">
+            <li><a href="/partner" class="footer-menu-link" style="color: var(--primary); font-weight: bold;">Đăng ký
+                đối tác</a></li>
+            <li><a href="#contactSection" class="footer-menu-link">Liên hệ hỗ trợ</a></li>
+            <li><a href="/admin/login" class="footer-menu-link">Đăng nhập Admin</a></li>
+            <li><a href="#" class="footer-menu-link">Chính sách bảo mật</a></li>
+            <li><a href="#" class="footer-menu-link">Điều khoản sử dụng</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact info -->
+        <div>
+          <h4 class="footer-heading">Thông tin liên hệ</h4>
+          <div class="footer-contact-info">
+            <div class="footer-contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span class="dynamic-address-text">Tầng 18, Tòa nhà Bitexco Financial Tower, Quận 1, TP. HCM</span>
+            </div>
+            <div class="footer-contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <a href="tel:0901234567" class="footer-menu-link dynamic-phone-link">0901 234 567</a>
+            </div>
+            <div class="footer-contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <a href="mailto:hotro@droppiiaff.vn" class="footer-menu-link dynamic-email-link">hotro@droppiiaff.vn</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Droppii Affiliate. All rights reserved. Designed for High Conversion & Performance.</div>
+        <div>Tối ưu Mobile First • Tốc độ cao • Không giỏ hàng rườm rà</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= 12. FLOATING CONTACT BUTTONS (DESKTOP) ================= -->
+  <aside class="desktop-floating-contact" aria-label="Liên hệ nhanh">
+    <a href="tel:0901234567" id="floatingPhoneBtn" class="floating-btn phone-btn" aria-label="Gọi điện thoại hotline">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      </svg>
+      <span class="floating-tooltip">Hotline: <span class="dynamic-phone-link">0901 234 567</span></span>
+    </a>
+    <a href="https://zalo.me" id="floatingZaloBtn" class="floating-btn zalo-btn" target="_blank"
+      rel="noopener noreferrer" aria-label="Nhắn tin qua Zalo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+      </svg>
+      <span class="floating-tooltip">Chat Zalo tư vấn</span>
+    </a>
+    <a href="https://m.me" id="floatingMessengerBtn" class="floating-btn messenger-btn" target="_blank"
+      rel="noopener noreferrer" aria-label="Nhắn tin qua Messenger">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        <polyline points="13 8 9 12 12 12 11 16 15 12 12 12 13 8"></polyline>
+      </svg>
+      <span class="floating-tooltip">Chat Facebook Messenger</span>
+    </a>
+  </aside>
+
+  <!-- ================= 13. MOBILE BOTTOM NAVIGATION ================= -->
+  <nav class="mobile-bottom-nav" aria-label="Điều hướng dưới cùng">
+    <div class="bottom-nav-inner">
+      <a href="#heroBannerSection" class="bottom-nav-item active">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        </span>
+        <span>Trang chủ</span>
+      </a>
+      <a href="#exploreProductsSection" class="bottom-nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        </span>
+        <span>Sản phẩm</span>
+      </a>
+      <a href="#promotionsSection" class="bottom-nav-item">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+        </span>
+        <span>Khuyến mãi</span>
+      </a>
+      <a href="https://zalo.me" id="bottomNavZalo" class="bottom-nav-item" target="_blank" rel="noopener noreferrer">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        </span>
+        <span>Zalo</span>
+      </a>
+      <a href="tel:0901234567" id="bottomNavCall" class="bottom-nav-item" style="color: var(--sale-red);">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </span>
+        <span>Gọi ngay</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ================= 14. PRODUCT DETAIL MODAL / BOTTOM SHEET ================= -->
+  <div class="modal-overlay" id="productDetailModal" role="dialog" aria-modal="true"
+    aria-labelledby="modalProductTitle">
+    <div class="modal-content-box">
+      <button class="modal-close-btn" data-close-modal="productDetailModal" aria-label="Đóng popup">✕</button>
+
+      <div class="product-modal-grid">
+        <!-- Left: Image Gallery -->
+        <div class="modal-gallery">
+          <div class="modal-main-img-wrap">
+            <img id="modalMainImage" src="" alt="Hình ảnh sản phẩm">
+          </div>
+          <div class="modal-thumbs-row" id="modalThumbsRow">
+            <!-- Thumbs dynamically inserted -->
+          </div>
+        </div>
+
+        <!-- Right: Info -->
+        <div class="modal-product-info">
+          <span class="modal-product-cat" id="modalProductCat">Danh mục</span>
+          <h2 class="modal-product-title" id="modalProductTitle">Tên sản phẩm</h2>
+
+          <div class="modal-price-box">
+            <span class="modal-sale-price" id="modalSalePrice">0 ₫</span>
+            <span class="modal-orig-price" id="modalOrigPrice">0 ₫</span>
+            <span class="modal-discount-tag" id="modalDiscountTag">-0%</span>
+          </div>
+
+          <div class="modal-gift-box" id="modalGiftBox" style="display: none;"></div>
+
+          <h4 class="modal-section-heading">Mô tả sản phẩm:</h4>
+          <div class="modal-desc-text" id="modalProductDesc">
+            Chi tiết nội dung sản phẩm...
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Bottom Affiliate Button in Modal -->
+      <div class="modal-sticky-footer">
+        <button class="btn-modal-affiliate" id="modalBuyAffiliateBtn" type="button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span>MUA NGAY TRÊN SÀN CHÍNH HÃNG →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 15. NEWS DETAIL MODAL ================= -->
+  <div class="modal-overlay" id="newsDetailModal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
+    <div class="modal-content-box" style="max-width: 680px;">
+      <button class="modal-close-btn" data-close-modal="newsDetailModal" aria-label="Đóng bài viết">✕</button>
+      <div class="news-modal-content">
+        <img id="newsModalImg" class="news-modal-img" src="" alt="Tin tức">
+        <div class="news-modal-date" id="newsModalDate">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span>Đăng ngày</span>
+        </div>
+        <h2 class="news-modal-title" id="newsModalTitle">Tiêu đề tin tức</h2>
+        <div class="news-modal-body" id="newsModalBody">
+          Nội dung chi tiết...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 16. VIDEO POPUP MODAL (Landscape & Shorts) ================= -->
+  <div class="modal-overlay video-popup-overlay" id="videoPopupModal" role="dialog" aria-modal="true"
+    aria-labelledby="videoPopupTitle">
+    <div class="video-modal-dialog is-landscape" id="videoModalDialog">
+      <button class="modal-close-btn video-modal-close-btn" data-close-modal="videoPopupModal"
+        aria-label="Đóng video">✕</button>
+      <div class="video-modal-player-wrap" id="videoModalPlayerWrap">
+        <!-- Dynamic iframe injected via videos.js -->
+      </div>
+      <div class="video-modal-info">
+        <div class="video-modal-meta">
+          <span class="video-format-pill" id="videoModalFormatPill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+            <span>Video HD</span>
+          </span>
+        </div>
+        <h3 class="video-modal-title" id="videoPopupTitle">Tiêu đề video</h3>
+        <p class="video-modal-desc" id="videoModalDesc"></p>
+        <div style="margin-top: 14px;">
+          <a id="videoPopupDirectLink" href="#" target="_blank" rel="noopener noreferrer" class="btn-watch-youtube" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: #FF0000; color: #FFFFFF; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: opacity 0.2s;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#FFFFFF"></polygon></svg>
+            <span>Xem trên YouTube ↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/toast.js"></script>
+  <script src="/assets/js/modal.js"></script>
+  <script src="/assets/js/banners.js"></script>
+  <script src="/assets/js/products.js"></script>
+  <script src="/assets/js/news.js"></script>
+  <script src="/assets/js/videos.js"></script>
+  <script src="/assets/js/contact.js"></script>
+  <script src="/assets/js/subscriber.js"></script>
+  <script src="/assets/js/app.js"></script>
+</body>
+
+</html>

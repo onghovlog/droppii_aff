@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Droppii Affiliate CMS</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Base Style & Admin Style -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/admin/assets/css/admin.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body class="admin-body">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="admin-sidebar-header">
+      <span style="font-size: 1.4rem;">🛍️</span>
+      <span>Droppii CMS</span>
+    </div>
+
+    <div class="admin-sidebar-menu">
+      <div class="admin-menu-item active" data-tab="dashboard">
+        <span>📊</span>
+        <span>Dashboard</span>
+      </div>
+      <div class="admin-menu-item" data-tab="banners">
+        <span>🖼️</span>
+        <span>Banners</span>
+      </div>
+      <div class="admin-menu-item" data-tab="products">
+        <span>🛍️</span>
+        <span>Sản phẩm</span>
+      </div>
+      <div class="admin-menu-item" data-tab="categories">
+        <span>📦</span>
+        <span>Danh mục</span>
+      </div>
+      <div class="admin-menu-item" data-tab="news">
+        <span>📰</span>
+        <span>Tin tức HOT</span>
+      </div>
+      <div class="admin-menu-item" data-tab="videos">
+        <span>🎬</span>
+        <span>Video</span>
+      </div>
+      <div class="admin-menu-item" data-tab="contacts">
+        <span>✉️</span>
+        <span>Liên hệ</span>
+      </div>
+      <div class="admin-menu-item" data-tab="subscribers">
+        <span>🔔</span>
+        <span>Nhận tin Deal</span>
+      </div>
+      <div class="admin-menu-item" data-tab="partners">
+        <span>🤝</span>
+        <span>Đối tác</span>
+      </div>
+      <div class="admin-menu-item" data-tab="affiliate">
+        <span>📈</span>
+        <span>Affiliate Clicks</span>
+      </div>
+      <div class="admin-menu-item" data-tab="settings">
+        <span>⚙️</span>
+        <span>Cấu hình Website</span>
+      </div>
+      <div class="admin-menu-item" data-tab="account">
+        <span>👤</span>
+        <span>Tài khoản</span>
+      </div>
+    </div>
+
+    <div class="admin-sidebar-footer">
+      <a href="/" target="_blank" class="btn-action" style="width: 100%; justify-content: center; margin-bottom: 8px; background: rgba(255,255,255,0.08); color: #fff;">
+        🌐 Xem Trang Chủ ↗
+      </a>
+      <button class="btn-action" onclick="AdminAuth.logout()" style="width: 100%; justify-content: center; background: #E53935; color: #fff; border: none;">
+        🚪 Đăng xuất
+      </button>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <div class="admin-main">
+    
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button class="admin-topbar-hamburger" id="adminHamburger">☰</button>
+        <h1 class="topbar-title" id="adminTopbarTitle">📊 Tổng quan hệ thống</h1>
+      </div>
+      <div class="topbar-actions">
+        <div class="admin-user-badge">
+          <span>👤</span>
+          <span id="adminCurrentUserName">Administrator</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-content-view">
+      
+      <!-- ================= 1. TAB: DASHBOARD ================= -->
+      <div class="admin-tab-panel is-active" id="tab-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon orange">🛍️</div>
+            <div>
+              <div class="stat-number" id="statTotalProducts">0</div>
+              <div class="stat-label">Tổng sản phẩm</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue">📦</div>
+            <div>
+              <div class="stat-number" id="statTotalCategories">0</div>
+              <div class="stat-label">Tổng danh mục</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red">⚡</div>
+            <div>
+              <div class="stat-number" id="statClicksToday">0</div>
+              <div class="stat-label">Click mua hôm nay</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">📈</div>
+            <div>
+              <div class="stat-number" id="statClicks7Days">0</div>
+              <div class="stat-label">Click 7 ngày qua</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple">🎯</div>
+            <div>
+              <div class="stat-number" id="statClicks30Days">0</div>
+              <div class="stat-label">Click 30 ngày qua</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue">✉️</div>
+            <div>
+              <div class="stat-number" id="statNewContacts">0</div>
+              <div class="stat-label">Liên hệ mới</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">🔔</div>
+            <div>
+              <div class="stat-number" id="statSubscribers">0</div>
+              <div class="stat-label">Người đăng ký nhận tin</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">🤝</div>
+            <div>
+              <div class="stat-number" id="statPartners">0</div>
+              <div class="stat-label">Đơn đăng ký đối tác</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">📈 Xu hướng Click Affiliate (14 ngày gần nhất)</h2>
+          </div>
+          <div style="padding: 20px; height: 320px; position: relative;">
+            <canvas id="clicksChartCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Top Clicked Products -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">🔥 Top Sản Phẩm Được Click Nhiều Nhất</h2>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px;">Hạng</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Giá khuyến mãi</th>
+                  <th>Số lượt click</th>
+                </tr>
+              </thead>
+              <tbody id="dashboardTopProductsBody">
+                <!-- Injected via admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 2. TAB: BANNERS ================= -->
+      <div class="admin-tab-panel" id="tab-banners">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">🖼️ Danh Sách Banner Khuyến Mãi</h2>
+            <button class="btn-admin-primary" onclick="AdminApp.openBannerModal()">+ Thêm Banner Mới</button>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Ảnh Banner</th>
+                  <th>Đường dẫn liên kết (Target URL)</th>
+                  <th>Thứ tự</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="adminBannersTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 3. TAB: PRODUCTS ================= -->
+      <div class="admin-tab-panel" id="tab-products">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">🛍️ Danh Sách Sản Phẩm</h2>
+            <button class="btn-admin-primary" onclick="AdminApp.openProductModal()">+ Thêm Sản Phẩm Mới</button>
+          </div>
+          
+          <!-- Filters -->
+          <div style="padding: 16px 20px; display: flex; gap: 10px; flex-wrap: wrap; background: #F8FAFC; border-bottom: 1px solid var(--admin-border);">
+            <input type="text" id="adminProductSearch" class="form-input" style="flex: 2; min-width: 200px;" placeholder="Tìm tên sản phẩm..." oninput="AdminApp.loadProducts(1)">
+            <select id="adminProductCategoryFilter" class="form-select" style="flex: 1; min-width: 150px;" onchange="AdminApp.loadProducts(1)">
+              <option value="">-- Tất cả danh mục --</option>
+            </select>
+            <select id="adminProductStatusFilter" class="form-select" style="flex: 1; min-width: 130px;" onchange="AdminApp.loadProducts(1)">
+              <option value="">-- Trạng thái --</option>
+              <option value="true">Hiển thị</option>
+              <option value="false">Ẩn</option>
+            </select>
+          </div>
+
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Ảnh</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Danh mục</th>
+                  <th>Giá & Khuyến mãi</th>
+                  <th>Nhãn nổi bật</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductsTableBody"></tbody>
+            </table>
+          </div>
+          <div class="admin-pagination" id="adminProductsPagination"></div>
+        </div>
+      </div>
+
+      <!-- ================= 4. TAB: CATEGORIES ================= -->
+      <div class="admin-tab-panel" id="tab-categories">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">📦 Quản Lý Danh Mục & Hiển Thị Trang Chủ</h2>
+            <button class="btn-admin-primary" onclick="AdminApp.openCategoryModal()">+ Thêm Danh Mục Mới</button>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Ảnh</th>
+                  <th>Tên danh mục</th>
+                  <th>Slug</th>
+                  <th>Số sản phẩm</th>
+                  <th>Trang chủ</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="adminCategoriesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 5. TAB: NEWS ================= -->
+      <div class="admin-tab-panel" id="tab-news">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">📰 Quản Lý Tin Tức & Khuyến Mãi HOT</h2>
+            <button class="btn-admin-primary" onclick="AdminApp.openNewsModal()">+ Đăng Tin Mới</button>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Thumbnail</th>
+                  <th>Tiêu đề</th>
+                  <th>Loại tin</th>
+                  <th>Ngày đăng</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="adminNewsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 6. TAB: VIDEOS ================= -->
+      <div class="admin-tab-panel" id="tab-videos">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">🎬 Quản Lý Video Đánh Giá</h2>
+            <button class="btn-admin-primary" onclick="AdminApp.openVideoModal()">+ Thêm Video Mới</button>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Thumbnail</th>
+                  <th>Tiêu đề</th>
+                  <th>Nền tảng</th>
+                  <th>Đường dẫn</th>
+                  <th>Thứ tự</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="adminVideosTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 7. TAB: CONTACTS ================= -->
+      <div class="admin-tab-panel" id="tab-contacts">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">✉️ Khách Hàng Gửi Liên Hệ</h2>
+          </div>
+          <div style="padding: 14px 20px; display: flex; gap: 10px; background: #F8FAFC; border-bottom: 1px solid var(--admin-border);">
+            <input type="text" id="adminContactSearch" class="form-input" style="flex: 2;" placeholder="Tìm theo tên, SĐT, email..." oninput="AdminApp.loadContacts(1)">
+            <select id="adminContactStatusFilter" class="form-select" style="flex: 1;" onchange="AdminApp.loadContacts(1)">
+              <option value="">-- Tất cả trạng thái --</option>
+              <option value="new">Mới (New)</option>
+              <option value="processing">Đang xử lý</option>
+              <option value="completed">Hoàn thành</option>
+              <option value="spam">Spam</option>
+            </select>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Họ tên & Email</th>
+                  <th>Số điện thoại</th>
+                  <th>Nội dung</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày gửi</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="adminContactsTableBody"></tbody>
+            </table>
+          </div>
+          <div class="admin-pagination" id="adminContactsPagination"></div>
+        </div>
+      </div>
+
+      <!-- ================= 8. TAB: SUBSCRIBERS ================= -->
+      <div class="admin-tab-panel" id="tab-subscribers">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">🔔 Danh Sách Đăng Ký Nhận Khuyến Mãi</h2>
+            <button class="btn-action" onclick="AdminApp.exportSubscribersCSV()" style="background: var(--success-green); color: #fff; border: none;">
+              📥 Xuất File Excel (CSV)
+            </button>
+          </div>
+          <div style="padding: 14px 20px; background: #F8FAFC; border-bottom: 1px solid var(--admin-border);">
+            <input type="text" id="adminSubscriberSearch" class="form-input" placeholder="Tìm theo Email hoặc SĐT..." oninput="AdminApp.loadSubscribers(1)">
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Email</th>
+                  <th>Số điện thoại</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày đăng ký</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="adminSubscribersTableBody"></tbody>
+            </table>
+          </div>
+          <div class="admin-pagination" id="adminSubscribersPagination"></div>
+        </div>
+      </div>
+
+      <!-- ================= 9. TAB: PARTNERS ================= -->
+      <div class="admin-tab-panel" id="tab-partners">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">🤝 Đơn Đăng Ký Hợp Tác Đối Tác</h2>
+          </div>
+          <div style="padding: 14px 20px; display: flex; gap: 10px; background: #F8FAFC; border-bottom: 1px solid var(--admin-border);">
+            <input type="text" id="adminPartnerSearch" class="form-input" style="flex: 2;" placeholder="Tìm đối tác theo tên, công ty, SĐT..." oninput="AdminApp.loadPartners(1)">
+            <select id="adminPartnerStatusFilter" class="form-select" style="flex: 1;" onchange="AdminApp.loadPartners(1)">
+              <option value="">-- Tất cả trạng thái --</option>
+              <option value="new">Mới (New)</option>
+              <option value="contacted">Đã liên hệ</option>
+              <option value="approved">Hợp tác (Approved)</option>
+              <option value="rejected">Từ chối</option>
+            </select>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Họ tên & Email</th>
+                  <th>Số điện thoại</th>
+                  <th>Đơn vị / Website</th>
+                  <th>Lĩnh vực</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày gửi</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="adminPartnersTableBody"></tbody>
+            </table>
+          </div>
+          <div class="admin-pagination" id="adminPartnersPagination"></div>
+        </div>
+      </div>
+
+      <!-- ================= 10. TAB: AFFILIATE LOGS ================= -->
+      <div class="admin-tab-panel" id="tab-affiliate">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">📈 Nhật Ký Click Điều Hướng Link Mua Hàng</h2>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Sản phẩm đích</th>
+                  <th>Nguồn click</th>
+                  <th>Affiliate URL</th>
+                  <th>IP Client</th>
+                  <th>Thời gian</th>
+                </tr>
+              </thead>
+              <tbody id="adminAffiliateLogsTableBody"></tbody>
+            </table>
+          </div>
+          <div class="admin-pagination" id="adminAffiliatePagination"></div>
+        </div>
+      </div>
+
+      <!-- ================= 11. TAB: SETTINGS ================= -->
+      <div class="admin-tab-panel" id="tab-settings">
+        <div class="admin-card" style="max-width: 800px;">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">⚙️ Cấu Hình Thông Tin Website & Mạng Xã Hội</h2>
+          </div>
+          <form id="adminSettingsForm" onsubmit="AdminApp.saveSettings(event)" style="padding: 24px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+              <div class="form-group">
+                <label class="form-label">Tên Website</label>
+                <input type="text" id="adminSettingSiteName" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Số Hotline</label>
+                <input type="text" id="adminSettingPhone" class="form-input">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+              <div class="form-group">
+                <label class="form-label">Email hỗ trợ</label>
+                <input type="email" id="adminSettingEmail" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Địa chỉ trụ sở</label>
+                <input type="text" id="adminSettingAddress" class="form-input">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+              <div class="form-group">
+                <label class="form-label">Link Zalo tư vấn</label>
+                <input type="url" id="adminSettingZaloUrl" class="form-input" placeholder="https://zalo.me/...">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Link Facebook Messenger</label>
+                <input type="url" id="adminSettingMessengerUrl" class="form-input" placeholder="https://m.me/...">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+              <div class="form-group">
+                <label class="form-label">Facebook Fanpage</label>
+                <input type="url" id="adminSettingFacebookUrl" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Kênh YouTube</label>
+                <input type="url" id="adminSettingYoutubeUrl" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Kênh TikTok</label>
+                <input type="url" id="adminSettingTiktokUrl" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Mô tả Footer ngắn</label>
+              <textarea id="adminSettingFooterDesc" class="form-textarea" rows="2"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nội dung Thông báo Tiếp thị liên kết (Affiliate Disclosure)</label>
+              <textarea id="adminSettingDisclosure" class="form-textarea" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-primary" style="width: auto; padding: 12px 28px;">
+              💾 Lưu Cấu Hình Website
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 12. TAB: ACCOUNT ================= -->
+      <div class="admin-tab-panel" id="tab-account">
+        <div class="admin-card" style="max-width: 600px;">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">👤 Thông Tin Quản Trị & Đổi Mật Khẩu</h2>
+          </div>
+          <form id="adminAccountForm" onsubmit="AdminApp.saveAccountProfile(event)" style="padding: 24px;">
+            <div class="form-group">
+              <label class="form-label">Họ và tên Admin</label>
+              <input type="text" id="adminProfileName" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email quản trị (Không thể đổi)</label>
+              <input type="email" id="adminProfileEmail" class="form-input" disabled style="opacity: 0.6;">
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--admin-border); margin: 24px 0;">
+            <h4 style="margin-bottom: 14px; font-weight: 700;">Đổi Mật Khẩu Đăng Nhập</h4>
+
+            <div class="form-group">
+              <label class="form-label">Mật khẩu hiện tại</label>
+              <input type="password" id="adminCurrentPassword" class="form-input" placeholder="••••••••">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Mật khẩu mới (Tối thiểu 6 ký tự)</label>
+              <input type="password" id="adminNewPassword" class="form-input" placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn-submit-primary" style="width: auto; padding: 12px 28px;">
+              Cập Nhật Tài Khoản
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. Banner Modal (STRICT: ONLY image, targetUrl, sortOrder, status - NO TEXT OVERLAYS) -->
+  <div class="modal-overlay" id="adminBannerModal" role="dialog" aria-modal="true">
+    <div class="modal-content-box" style="max-width: 540px;">
+      <button class="modal-close-btn" data-close-modal="adminBannerModal">✕</button>
+      <div style="padding: 24px;">
+        <h3 id="adminBannerModalTitle" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 20px;">Thêm Banner Mới</h3>
+        
+        <form id="adminBannerForm" onsubmit="AdminApp.saveBanner(event)">
+          <input type="hidden" id="adminBannerId">
+
+          <div class="form-group">
+            <label class="form-label">Tải lên ảnh Banner (JPG, PNG, WebP) <span class="required">*</span></label>
+            <input type="file" id="adminBannerImageFile" class="form-input" accept="image/*">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Hoặc nhập link ảnh trực tiếp (URL)</label>
+            <input type="url" id="adminBannerImageUrl" class="form-input" placeholder="https://images.unsplash.com/...">
+          </div>
+
+          <img id="adminBannerImagePreview" src="" alt="Banner Preview" style="width: 100%; aspect-ratio: 16/6; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: none;">
+
+          <div class="form-group">
+            <label class="form-label">Đường dẫn liên kết khi bấm vào Banner (Target URL) <span class="required">*</span></label>
+            <input type="text" id="adminBannerTargetUrl" class="form-input" placeholder="https://shopee.vn/..." required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Thứ tự hiển thị (Sort Order)</label>
+              <input type="number" id="adminBannerSortOrder" class="form-input" value="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Trạng thái</label>
+              <select id="adminBannerStatus" class="form-select">
+                <option value="true">Hiển thị (Bật)</option>
+                <option value="false">Tạm ẩn (Tắt)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button type="button" class="btn-action" data-close-modal="adminBannerModal">Hủy</button>
+            <button type="submit" class="btn-admin-primary">Lưu Banner</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Product Modal -->
+  <div class="modal-overlay" id="adminProductModal" role="dialog" aria-modal="true">
+    <div class="modal-content-box" style="max-width: 780px;">
+      <button class="modal-close-btn" data-close-modal="adminProductModal">✕</button>
+      <div style="padding: 24px;">
+        <h3 id="adminProductModalTitle" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 20px;">Thêm Sản Phẩm Mới</h3>
+        
+        <form id="adminProductForm" onsubmit="AdminApp.saveProduct(event)">
+          <input type="hidden" id="adminProductId">
+
+          <div class="form-group">
+            <label class="form-label">Tên sản phẩm <span class="required">*</span></label>
+            <input type="text" id="adminProductName" class="form-input" placeholder="Ví dụ: iPhone 16 Pro Max 256GB" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label">Danh mục sản phẩm <span class="required">*</span></label>
+              <select id="adminProductCategorySelect" class="form-select" required></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Link Affiliate mua hàng <span class="required">*</span></label>
+              <input type="url" id="adminProductAffiliateUrl" class="form-input" placeholder="https://shopee.vn/..." required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Giá khuyến mãi (VNĐ) <span class="required">*</span></label>
+              <input type="number" id="adminProductPriceSale" class="form-input" placeholder="399000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Giá gốc ban đầu (VNĐ)</label>
+              <input type="number" id="adminProductPriceOriginal" class="form-input" placeholder="500000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">% Giảm giá (Tự tính)</label>
+              <input type="number" id="adminProductDiscount" class="form-input" placeholder="20">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quà tặng kèm theo (Nếu có)</label>
+            <input type="text" id="adminProductGift" class="form-input" placeholder="Ví dụ: Tặng Voucher 50K & Ốp lưng chính hãng">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tải lên hình ảnh sản phẩm (Có thể chọn nhiều file)</label>
+            <input type="file" id="adminProductImagesFile" class="form-input" multiple accept="image/*">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Hoặc nhập danh sách Link ảnh (Mỗi link 1 dòng)</label>
+            <textarea id="adminProductImageUrls" class="form-textarea" rows="2" placeholder="https://images.unsplash.com/..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Mô tả ngắn</label>
+            <input type="text" id="adminProductShortDesc" class="form-input" placeholder="Tóm tắt đặc điểm nổi bật trong 1 câu...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Mô tả chi tiết & Thông số kỹ thuật</label>
+            <textarea id="adminProductDesc" class="form-textarea" rows="4" placeholder="Nội dung chi tiết sản phẩm..."></textarea>
+          </div>
+
+          <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; padding: 12px; background: #F8FAFC; border-radius: 8px;">
+            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.875rem; cursor: pointer;">
+              <input type="checkbox" id="adminProductIsPromotion"> 🔥 Sản phẩm khuyến mãi
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.875rem; cursor: pointer;">
+              <input type="checkbox" id="adminProductIsNew"> ✨ Sản phẩm mới
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.875rem; cursor: pointer;">
+              <input type="checkbox" id="adminProductIsFeatured"> ⭐ Sản phẩm nổi bật
+            </label>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label">Trạng thái</label>
+              <select id="adminProductStatus" class="form-select">
+                <option value="true">Hiển thị</option>
+                <option value="false">Tạm ẩn</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Thứ tự sắp xếp (Sort Order)</label>
+              <input type="number" id="adminProductSortOrder" class="form-input" value="0">
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button type="button" class="btn-action" data-close-modal="adminProductModal">Hủy</button>
+            <button type="submit" class="btn-admin-primary">Lưu Sản Phẩm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Category Modal -->
+  <div class="modal-overlay" id="adminCategoryModal" role="dialog" aria-modal="true">
+    <div class="modal-content-box" style="max-width: 540px;">
+      <button class="modal-close-btn" data-close-modal="adminCategoryModal">✕</button>
+      <div style="padding: 24px;">
+        <h3 id="adminCategoryModalTitle" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 20px;">Thêm Danh Mục Mới</h3>
+        
+        <form id="adminCategoryForm" onsubmit="AdminApp.saveCategory(event)">
+          <input type="hidden" id="adminCategoryId">
+
+          <div class="form-group">
+            <label class="form-label">Tên danh mục <span class="required">*</span></label>
+            <input type="text" id="adminCategoryName" class="form-input" placeholder="Ví dụ: Đồ gia dụng thông minh" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tải lên ảnh biểu trưng</label>
+            <input type="file" id="adminCategoryImageFile" class="form-input" accept="image/*">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Hoặc link ảnh trực tiếp</label>
+            <input type="url" id="adminCategoryImageUrl" class="form-input" placeholder="https://images.unsplash.com/...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Mô tả danh mục</label>
+            <textarea id="adminCategoryDesc" class="form-textarea" rows="2" placeholder="Mô tả các sản phẩm thuộc danh mục..."></textarea>
+          </div>
+
+          <div style="padding: 12px; background: #F8FAFC; border-radius: 8px; margin-bottom: 16px;">
+            <label style="display: flex; align-items: center; gap: 8px; font-weight: 700; margin-bottom: 10px; cursor: pointer;">
+              <input type="checkbox" id="adminCategoryShowHomepage" checked>
+              <span>Hiển thị section riêng trên Trang Chủ</span>
+            </label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label class="form-label" style="font-size: 0.775rem;">Thứ tự Trang chủ</label>
+                <input type="number" id="adminCategoryHomepageOrder" class="form-input" value="1">
+              </div>
+              <div>
+                <label class="form-label" style="font-size: 0.775rem;">Số sản phẩm tối đa</label>
+                <input type="number" id="adminCategoryProductLimit" class="form-input" value="8">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Trạng thái</label>
+            <select id="adminCategoryStatus" class="form-select">
+              <option value="true">Hoạt động</option>
+              <option value="false">Tạm dừng</option>
+            </select>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button type="button" class="btn-action" data-close-modal="adminCategoryModal">Hủy</button>
+            <button type="submit" class="btn-admin-primary">Lưu Danh Mục</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. News Modal -->
+  <div class="modal-overlay" id="adminNewsModal" role="dialog" aria-modal="true">
+    <div class="modal-content-box" style="max-width: 680px;">
+      <button class="modal-close-btn" data-close-modal="adminNewsModal">✕</button>
+      <div style="padding: 24px;">
+        <h3 id="adminNewsModalTitle" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 20px;">Thêm Tin Tức</h3>
+        
+        <form id="adminNewsForm" onsubmit="AdminApp.saveNews(event)">
+          <input type="hidden" id="adminNewsId">
+
+          <div class="form-group">
+            <label class="form-label">Tiêu đề bài viết <span class="required">*</span></label>
+            <input type="text" id="adminNewsTitle" class="form-input" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Tải lên Thumbnail</label>
+              <input type="file" id="adminNewsThumbnailFile" class="form-input" accept="image/*">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Hoặc Link Thumbnail</label>
+              <input type="url" id="adminNewsThumbnailUrl" class="form-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tóm tắt ngắn</label>
+            <textarea id="adminNewsSummary" class="form-textarea" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nội dung bài viết (Hỗ trợ định dạng HTML) <span class="required">*</span></label>
+            <textarea id="adminNewsContent" class="form-textarea" rows="6" required></textarea>
+          </div>
+
+          <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 16px;">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+              <input type="checkbox" id="adminNewsIsHot"> 🔥 Gắn nhãn HOT
+            </label>
+            <select id="adminNewsStatus" class="form-select" style="width: 140px;">
+              <option value="true">Xuất bản</option>
+              <option value="false">Bản nháp</option>
+            </select>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" class="btn-action" data-close-modal="adminNewsModal">Hủy</button>
+            <button type="submit" class="btn-admin-primary">Lưu Bài Viết</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Video Modal -->
+  <div class="modal-overlay" id="adminVideoModal" role="dialog" aria-modal="true">
+    <div class="modal-content-box" style="max-width: 580px;">
+      <button class="modal-close-btn" data-close-modal="adminVideoModal">✕</button>
+      <div style="padding: 24px;">
+        <h3 id="adminVideoModalTitle" style="font-size: 1.25rem; font-weight: 800; margin-bottom: 20px;">Thêm Video Mới</h3>
+        
+        <form id="adminVideoForm" onsubmit="AdminApp.saveVideo(event)">
+          <input type="hidden" id="adminVideoId">
+
+          <div class="form-group">
+            <label class="form-label">Đường dẫn Video YouTube <span class="required">*</span></label>
+            <div style="display: flex; gap: 8px;">
+              <input type="url" id="adminVideoUrl" class="form-input" placeholder="https://www.youtube.com/watch?v=... hoặc /shorts/..." required oninput="AdminApp.handleVideoUrlInput(this.value)">
+              <button type="button" class="btn-action" style="white-space: nowrap; padding: 0 12px;" onclick="AdminApp.fetchYouTubeInfo()" title="Tự động lấy tiêu đề và thumbnail">
+                ⚡ Tự Lấy Info
+              </button>
+            </div>
+            <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block;">
+              Hỗ trợ link video chuẩn, link rút gọn youtu.be, hoặc link YouTube Shorts
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tiêu đề Video <span class="required">*</span></label>
+            <input type="text" id="adminVideoTitle" class="form-input" placeholder="Nhập tiêu đề hoặc bấm Tự Lấy Info..." required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label class="form-label">Nền tảng</label>
+              <select id="adminVideoPlatform" class="form-select">
+                <option value="youtube">YouTube</option>
+                <option value="tiktok">TikTok</option>
+                <option value="facebook">Facebook</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Định dạng hiển thị</label>
+              <select id="adminVideoIsVertical" class="form-select">
+                <option value="false">📺 Video Ngang (16:9)</option>
+                <option value="true">📱 Video Dọc / Shorts (9:16)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Live Thumbnail Preview -->
+          <div class="form-group">
+            <label class="form-label">Thumbnail Video</label>
+            <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+              <div id="adminVideoThumbPreviewBox" style="width: 120px; aspect-ratio: 16/9; background: #1e293b; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-light); flex-shrink: 0;">
+                <img id="adminVideoThumbPreview" src="" alt="Thumbnail preview" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                <span id="adminVideoThumbEmptyText" style="font-size: 0.75rem; color: #94a3b8; text-align: center; padding: 4px;">Chưa có ảnh</span>
+              </div>
+              <div style="flex: 1;">
+                <input type="url" id="adminVideoThumbUrl" class="form-input" placeholder="Tự động trích xuất từ YouTube hoặc nhập link ảnh" oninput="AdminApp.updateVideoThumbPreview(this.value)">
+                <small style="color: var(--text-secondary); font-size: 0.725rem; margin-top: 3px; display: block;">Hoặc tải ảnh từ máy tính:</small>
+                <input type="file" id="adminVideoThumbnailFile" class="form-input" accept="image/*" style="margin-top: 4px; padding: 4px 8px; font-size: 0.8rem;">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Mô tả tóm tắt</label>
+            <textarea id="adminVideoDesc" class="form-textarea" rows="2" placeholder="Tóm tắt nội dung video..."></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label class="form-label">Thứ tự hiển thị</label>
+              <input type="number" id="adminVideoSortOrder" class="form-input" value="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Trạng thái</label>
+              <select id="adminVideoStatus" class="form-select">
+                <option value="true">Hiển thị</option>
+                <option value="false">Tạm ẩn</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn-action" data-close-modal="adminVideoModal">Hủy</button>
+            <button type="submit" class="btn-admin-primary">Lưu Video</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Delete Confirmation Modal -->
+  <div class="modal-overlay" id="adminDeleteConfirmModal" role="dialog" aria-modal="true">
+    <div class="modal-content-box" style="max-width: 440px;">
+      <div style="padding: 24px; text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 12px;">⚠️</div>
+        <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 8px;">Xác nhận xóa dữ liệu</h3>
+        <p id="deleteConfirmText" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">
+          Bạn có chắc chắn muốn xóa mục này?
+        </p>
+        <div style="display: flex; justify-content: center; gap: 12px;">
+          <button type="button" class="btn-action" data-close-modal="adminDeleteConfirmModal" style="padding: 10px 20px;">
+            Hủy bỏ
+          </button>
+          <button type="button" class="btn-admin-primary" onclick="AdminApp.executeDelete()" style="background: var(--sale-red); padding: 10px 20px;">
+            Đồng ý Xóa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Scripts -->
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/toast.js"></script>
+  <script src="/assets/js/modal.js"></script>
+  <script src="/admin/assets/js/auth.js"></script>
+  <script src="/admin/assets/js/admin.js"></script>
+</body>
+</html>

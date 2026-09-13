@@ -1,0 +1,39 @@
+{
+  "name": "droppii-affiliate-web",
+  "version": "1.0.0",
+  "description": "Website Giới thiệu Sản phẩm & Điều hướng Link Affiliate - Mobile First, High Performance",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "seed": "node scripts/seed.js"
+  },
+  "keywords": [
+    "affiliate",
+    "droppii",
+    "product-showcase",
+    "nodejs",
+    "express",
+    "mongodb",
+    "vanilla-js"
+  ],
+  "author": "Antigravity Senior Fullstack",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
