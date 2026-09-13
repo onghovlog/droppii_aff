@@ -4,6 +4,10 @@
 const Products = {
   currentCategorySlug: '',
   allCategories: [],
+  explorePage: 1,
+  exploreLimit: 8,
+  exploreTotalPages: 1,
+  exploreTotal: 0,
 
   // Generate Skeleton HTML for Loading state
   getSkeletonHTML(count = 4) {
@@ -248,17 +252,33 @@ const Products = {
   },
 
   // 5. Load Filtered Products in Explore Grid
-  async loadExploreProducts() {
+  async loadExploreProducts(append = false) {
     const grid = document.getElementById('exploreProductsGrid');
+    const loadMoreContainer = document.getElementById('exploreLoadMoreContainer');
+    const loadMoreBtn = document.getElementById('btnExploreLoadMore');
     if (!grid) return;
 
-    grid.innerHTML = this.getSkeletonHTML(6);
+    if (append) {
+      this.explorePage += 1;
+      if (loadMoreBtn) {
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.innerHTML = `
+          <span>Đang tải thêm...</span>
+          <svg class="loading-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 0.8s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+        `;
+      }
+    } else {
+      this.explorePage = 1;
+      grid.innerHTML = this.getSkeletonHTML(this.exploreLimit);
+      if (loadMoreContainer) loadMoreContainer.style.display = 'none';
+    }
 
     const searchInput = document.getElementById('productSearchInput');
     const sortSelect = document.getElementById('productSortSelect');
 
     const params = {
-      limit: 20
+      page: this.explorePage,
+      limit: this.exploreLimit
     };
 
     if (this.currentCategorySlug) {
@@ -275,21 +295,63 @@ const Products = {
 
     try {
       const res = await API.get('/products', params);
-      if (res.success && res.data.length > 0) {
-        grid.innerHTML = res.data.map((p) => this.createProductCardHTML(p)).join('');
+      if (res.success && res.data && res.data.length > 0) {
+        const html = res.data.map((p) => this.createProductCardHTML(p)).join('');
+        if (append) {
+          grid.insertAdjacentHTML('beforeend', html);
+        } else {
+          grid.innerHTML = html;
+        }
+
+        if (res.pagination) {
+          this.exploreTotalPages = res.pagination.totalPages || 1;
+          this.exploreTotal = res.pagination.total || res.data.length;
+        } else {
+          this.exploreTotalPages = 1;
+        }
+
+        // Show 'Xem thêm' if more pages exist
+        if (loadMoreContainer) {
+          if (this.explorePage < this.exploreTotalPages) {
+            loadMoreContainer.style.display = 'flex';
+          } else {
+            loadMoreContainer.style.display = 'none';
+          }
+        }
       } else {
-        grid.innerHTML = `
-          <div class="empty-state-box">
-            <div class="empty-state-icon" style="display:flex; justify-content:center; margin-bottom:8px;">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        if (!append) {
+          grid.innerHTML = `
+            <div class="empty-state-box">
+              <div class="empty-state-icon" style="display:flex; justify-content:center; margin-bottom:8px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </div>
+              <p>Không tìm thấy sản phẩm nào phù hợp với tìm kiếm của bạn.</p>
             </div>
-            <p>Không tìm thấy sản phẩm nào phù hợp với tìm kiếm của bạn.</p>
-          </div>
-        `;
+          `;
+        }
+        if (loadMoreContainer) loadMoreContainer.style.display = 'none';
       }
     } catch (err) {
-      grid.innerHTML = `<div class="empty-state-box"><p>Lỗi tải danh sách sản phẩm.</p></div>`;
+      if (!append) {
+        grid.innerHTML = `<div class="empty-state-box"><p>Lỗi tải danh sách sản phẩm.</p></div>`;
+      }
+      if (loadMoreContainer) loadMoreContainer.style.display = 'none';
+    } finally {
+      if (loadMoreBtn) {
+        loadMoreBtn.disabled = false;
+        loadMoreBtn.innerHTML = `
+          <span>Xem thêm sản phẩm</span>
+          <svg class="load-more-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+        `;
+      }
     }
+  },
+
+  loadMoreExploreProducts() {
+    this.loadExploreProducts(true);
   },
 
   // 6. Open Product Detail Modal

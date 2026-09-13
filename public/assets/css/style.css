@@ -2193,3 +2193,60 @@ button {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* ================= LOAD MORE BUTTON STYLES ================= */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.btn-load-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 32px;
+  background-color: #FFFFFF;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.btn-load-more:hover {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-load-more:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-load-more .load-more-icon {
+  stroke: currentColor;
+  transition: transform var(--transition-fast);
+}
+
+.btn-load-more:hover .load-more-icon {
+  transform: translateY(3px);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
